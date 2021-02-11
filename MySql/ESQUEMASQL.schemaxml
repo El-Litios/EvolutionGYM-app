@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8mb4" collation="utf8mb4_general_ci">db_evolutiongym</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="client" view="colnames">
+<left>872</left>
+<top>245</top>
+<width>108</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `client` (
+  `cod_client` int(4) NOT NULL AUTO_INCREMENT,
+  `rut_client` varchar(15) NOT NULL,
+  `nom_client` varchar(50) NOT NULL,
+  `ap_client` varchar(50) NOT NULL,
+  `am_client` varchar(50) NOT NULL,
+  PRIMARY KEY (`cod_client`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="membership" view="colnames">
+<left>533</left>
+<top>282</top>
+<width>116</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `membership` (
+  `cod_mem` int(4) NOT NULL AUTO_INCREMENT,
+  `cod_user` int(3) NOT NULL,
+  `cod_client` int(4) NOT NULL,
+  `cod_method` int(1) NOT NULL,
+  `cod_var` int(1) NOT NULL,
+  `date_ini` date NOT NULL,
+  `date_end` date NOT NULL,
+  PRIMARY KEY (`cod_mem`),
+  KEY `cod_user` (`cod_user`),
+  KEY `cod_client` (`cod_client`),
+  KEY `cod_method` (`cod_method`),
+  KEY `cod_var` (`cod_var`),
+  CONSTRAINT `membership_ibfk_1` FOREIGN KEY (`cod_user`) REFERENCES `user` (`cod_user`),
+  CONSTRAINT `membership_ibfk_2` FOREIGN KEY (`cod_client`) REFERENCES `client` (`cod_client`),
+  CONSTRAINT `membership_ibfk_3` FOREIGN KEY (`cod_method`) REFERENCES `paymethod` (`cod_payM`),
+  CONSTRAINT `membership_ibfk_4` FOREIGN KEY (`cod_var`) REFERENCES `variant` (`cod_var`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="paymethod" view="colnames">
+<left>326</left>
+<top>664</top>
+<width>109</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `paymethod` (
+  `cod_payM` int(1) NOT NULL AUTO_INCREMENT,
+  `desc_payM` varchar(15) NOT NULL,
+  PRIMARY KEY (`cod_payM`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="role" view="colnames">
+<left>129</left>
+<top>244</top>
+<width>101</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `role` (
+  `cod_role` int(1) NOT NULL AUTO_INCREMENT,
+  `desc_role` varchar(30) NOT NULL,
+  PRIMARY KEY (`cod_role`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="user" view="colnames">
+<left>294</left>
+<top>362</top>
+<width>104</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `user` (
+  `cod_user` int(3) NOT NULL AUTO_INCREMENT,
+  `nom_user` varchar(30) NOT NULL,
+  `pass_user` varchar(15) NOT NULL,
+  `nom_pers` varchar(50) NOT NULL,
+  `ap_user` varchar(50) NOT NULL,
+  `am_user` varchar(50) NOT NULL,
+  `cod_role` int(1) NOT NULL,
+  PRIMARY KEY (`cod_user`),
+  KEY `cod_role` (`cod_role`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`cod_role`) REFERENCES `role` (`cod_role`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="variant" view="colnames">
+<left>912</left>
+<top>594</top>
+<width>98</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `variant` (
+  `cod_var` int(1) NOT NULL AUTO_INCREMENT,
+  `desc_var` varchar(20) NOT NULL,
+  PRIMARY KEY (`cod_var`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
